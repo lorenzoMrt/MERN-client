@@ -27,9 +27,8 @@ export default function Dashboard({children}: {children?: React.ReactNode}) {
                 </div>
                 <div className="hidden md:block">
                   <div className="ml-10 flex items-baseline space-x-4">
-                    <a
+                    <button
                       key={"Dashboard"}
-                      href={"#"}
                       className={classNames(
                         "bg-gray-900 text-white",
                         "rounded-md px-3 py-2 text-sm font-medium",
@@ -37,7 +36,7 @@ export default function Dashboard({children}: {children?: React.ReactNode}) {
                       aria-current={"page"}
                     >
                       {"Dashboard"}
-                    </a>
+                    </button>
                   </div>
                 </div>
               </div>
