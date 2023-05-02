@@ -45,7 +45,7 @@ export default function Dashboard({children}: {children?: React.ReactNode}) {
                 <div className="ml-4 flex items-center md:ml-6">
                   <div>
                     <button className="flex max-w-xs items-center rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
-                      {/* <RandomAvatar width='50px' height='50px'/> */}
+                      <RandomAvatar width='50px' height='50px'/>
                     </button>
                   </div>
                 </div>

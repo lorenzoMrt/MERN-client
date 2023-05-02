@@ -1,16 +1,26 @@
 import { Fragment, useRef } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import Form from './Form'
+import { addCustomer } from '../api';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { ICustomer } from '../Models/Customer';
 
-interface modalProps {
+interface ModalProps {
   open: boolean;
   closeModal: () => void;
 }
 
-export default function Modal(props:modalProps) {
-
+export default function Modal(props:ModalProps) {
+  const queryClient = useQueryClient()
   const cancelButtonRef = useRef(null)
-
+  const nameRef = useRef<HTMLInputElement>(null);
+  const bagCountRef = useRef<HTMLInputElement>(null);
+  const customerMutation = useMutation({
+    mutationFn: (newCustomer:ICustomer) => addCustomer(newCustomer),
+    onSuccess: () => {
+      queryClient.invalidateQueries(['customers'])
+    }
+  })
   return (
     <Transition.Root show={props.open} as={Fragment}>
       <Dialog as="div" className="relative z-10" initialFocus={cancelButtonRef} onClose={() => props.closeModal()}>
@@ -38,11 +48,15 @@ export default function Modal(props:modalProps) {
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
               <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
-                <Form/>
+                <Form bagCountRef={bagCountRef} nameRef={nameRef}/>
                 <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
                   <button
                     type="button"
                     className="inline-flex w-full justify-center rounded-md bg-blue-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-500 sm:ml-3 sm:w-auto"
+                    onClick={() => {
+                      customerMutation.mutate({name: nameRef.current?.value!, bags: parseInt(bagCountRef.current?.value!)})
+                      props.closeModal()
+                    }}
                   >
                     Add
                   </button>

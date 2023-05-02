@@ -1,30 +1,27 @@
-import { useEffect, useState } from 'react';
-import './App.css';
-import Dashboard from './components/Dashboard';
-import { ICustomer } from './Models/Customer';
-import Card from './components/Card';
+import "./App.css";
+import Dashboard from "./components/Dashboard";
+import { ICustomer } from "./Models/Customer";
+import Card from "./components/Card";
+import { getAllCustomers } from "./api";
+import { useQuery } from "@tanstack/react-query";
 
 function App() {
-  const [customers, setCustomers] = useState<ICustomer[]>([])
-  useEffect(() => {
-    const testFetch = async () => {
-      const response = await fetch('http://localhost:3000/api/customers/all');
-      const body = await response.json();
-      setCustomers(body.customers);
-      console.log(body);
-    }
-    testFetch();
-    return() => {
-      testFetch();
-    }
-  }, [])
+  const query = useQuery<ICustomer[]>({ queryKey: ["customers"], queryFn: getAllCustomers });
   return (
     <div>
-      <Dashboard>
-        {
-          customers.map((customer) => (<Card key={customer._id} name={customer.name} bags={customer.bags}/>)) 
-        }
-      </Dashboard>
+      {query.isLoading ? (
+        <div>Loading...</div>
+      ) : (
+        <Dashboard>
+          {query.data && query.data.map((customer) => (
+            <Card
+              key={customer._id}
+              name={customer.name}
+              bags={customer.bags}
+            />
+          ))}
+        </Dashboard>
+      )}
     </div>
   );
 }

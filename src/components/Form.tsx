@@ -1,22 +1,18 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 
-export default function Form() {
-  // const [bagCount, setBagCount] = useState(0);
-  const nameRef = useRef(null);
-  const bagCountRef = useRef<number>(0);
-  const handleIncrement = () => {
-    if(bagCountRef.current < 5) {
-
-      bagCountRef.current +=  1;
-    }
+interface FormProps {
+  nameRef: React.RefObject<HTMLInputElement>;
+  bagCountRef: React.RefObject<HTMLInputElement>;
+}
+export default function Form({ nameRef, bagCountRef }: FormProps) {
+  const [name, setName] = useState("");
+  
+  const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setName(event.target.value);
   };
 
-  const handleDecrement = () => {
-    if(bagCountRef.current > 0){
+  
 
-      bagCountRef.current -=  1;
-    }
-  };
   return (
     <form>
       <div className="space-y-12">
@@ -30,7 +26,6 @@ export default function Form() {
               <label
                 htmlFor="first-name"
                 className="block text-sm font-medium leading-6 text-gray-900"
-                
               >
                 Name
               </label>
@@ -42,6 +37,8 @@ export default function Form() {
                   autoComplete="given-name"
                   ref={nameRef}
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  value={name}
+                  onChange={handleNameChange}
                 />
               </div>
             </div>
@@ -53,27 +50,16 @@ export default function Form() {
               >
                 Bags
               </label>
-              <div className="flex flex-row mt-2">
-                <button
-                  className=" bg-white text-gray-300 hover:text-gray-600 hover:bg-gray-400 h-full w-20 rounded-l cursor-pointer outline-none"
-                  onClick={handleDecrement}
-                >
-                  <span className="m-auto text-2xl font-thin">-</span>
-                </button>
-                <input
-                  type="number"
-                  name="bag-count"
-                  id="bag-count"
-                  autoComplete="bag-count"
-                  className="outline-none focus:outline-none text-center w-full bg-white font-semibold text-md hover:text-black focus:text-black  md:text-basecursor-default flex items-center text-gray-700  outline-none"
-                />
-                <button
-                  className="bg-white text-gray-300 hover:text-gray-600 hover:bg-gray-400 h-full w-20 rounded-r cursor-pointer"
-                  onClick={handleIncrement}
-                >
-                  <span className="m-auto text-2xl font-thin">+</span>
-                </button>
-              </div>
+              <input
+                type="number"
+                name="bag-count"
+                id="bag-count"
+                autoComplete="bag-count"
+                className="outline-none focus:outline-none text-center w-full bg-white font-semibold text-md hover:text-black focus:text-black  md:text-basecursor-default flex items-center text-gray-700  outline-none"
+                ref={bagCountRef}
+                min={0}
+                max={5}
+              />
             </div>
           </div>
         </div>
