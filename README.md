@@ -30,7 +30,7 @@ This project is a full-stack web application built using React, TypeScript, Tail
 **Installation**
 1. Clone the repository
 2. Install dependencies by running npm install in both the frontend and backend directories
-3. Start the development server by running ```npm run start``` or ``yarn start`` in the frontend
+3. Start the development server by running ``yarn start`` in the frontend
 
 **Deployment**
 1. Build the frontend by running npm run build in the frontend directory
