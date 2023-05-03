@@ -1,12 +1,12 @@
-## About
+# About
 
 This project is a full-stack web application built using React, TypeScript, TailwindCSS, React Query, Express, MongoDB, and Docker. It provides a web interface for users to view and manage their customers.
 
-### Features
+## Features
 - View customers
 - Add new customer
 
-### Technologies Used
+## Technologies Used
 **Frontend**
 - React: A JavaScript library for building user interfaces
 - Create React App: A tool for creating React applications with no build configuration
@@ -22,11 +22,10 @@ This project is a full-stack web application built using React, TypeScript, Tail
 - Docker: A platform for building, shipping, and running distributed applications
 
 **Database**
-MongoDB Docker Image: A pre-built Docker image for running MongoDB
+- MongoDB Docker Image: A pre-built Docker image for running MongoDB
 
 **Deployment**
-AWS EC2: A scalable virtual machine service for deploying backend and database
-Getting Started
+- AWS EC2: A scalable virtual machine service for deploying backend and database
 
 **Installation**
 1. Clone the repository
@@ -41,7 +40,7 @@ Getting Started
 5. Pull the Docker image and run the container on the EC2 instance
 
 
-
+# Getting started
 ## Available Scripts
 
 In the project directory, you can run:
